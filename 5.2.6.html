@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+            let obj = {
+            "1":0,
+            "2":0,
+            "3":0,
+            "4":0,
+            "5":0,
+            };
+            function random ( min, max ) {
+                     return Math.round(min-0.5 + Math.random() * (max+1 - min));
+            }
+            alert( random(1, 5) ); // 1.2345623452
+            alert( random(1, 5) ); // 3.7894332423
+            alert( random(1, 5) ); // 4.3435234525
+
+       for (let i=1;i<=100000;i++) {
+           obj[random(1,5)]++;
+       }
+
+       for (let key in obj) {
+           alert(`${key}, ${obj[key]/100000}`);
+       }
+
+    </script>
+</html>

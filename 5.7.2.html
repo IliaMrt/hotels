@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+            let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
+            alert( aclean(arr) ); // "nap,teachers,ear" или "PAN,cheaters,era"
+
+            function aclean(arr) {
+              let set = new Set();
+              let res = [];
+              arr.map(word=>{
+                let temp=Array.from(word.toLowerCase()).sort().join('');
+                if (!set.has(temp)) {
+                   set.add(temp);
+                   res.push(word);
+                  }
+                }
+                )
+              return res;
+            }
+
+    </script>
+</html>

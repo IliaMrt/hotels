@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+            function readNumber() {
+                     while (1) {
+                         let input = prompt('Enter a number','');
+                         if ( input == null || input == '' ) return null;
+                         if ( isFinite(input) ) return +input;
+                     }
+            }
+            alert(readNumber());
+
+    </script>
+</html>

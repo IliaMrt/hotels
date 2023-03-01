@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+
+
+       function formatDate(d) {
+        let delta=Date.now()-d;
+        return (delta<1000)?
+               'прямо сейчас':
+                 (delta<60000)?
+                 `${delta/1000} сек. назад`:
+                   (delta<60*60*1000)?
+                   `${Math.round(delta/1000/60)} мин. назад`:
+                   `${d.getDate()<10?'0'+d.getDate():d.getDate()}.${d.getMonth()<9?'0'+(d.getMonth()+1):d.getMonth()+1}.${d.getFullYear()>=2000?d.getFullYear()-2000:d.getFullYear()-1900} ${d.getHours()<10?'0'+d.getHours():d.getHours()}:${d.getMinutes()}`;
+
+
+
+
+      }
+
+      alert( formatDate(new Date(new Date - 1)) ); // "прямо сейчас"
+
+      alert( formatDate(new Date(new Date - 30 * 1000)) ); // "30 сек. назад"
+
+      alert( formatDate(new Date(new Date - 5 * 60 * 1000)) ); // "5 мин. назад"
+
+      // вчерашняя дата вроде 31.12.2016, 20:00
+      alert( formatDate(new Date(new Date - 86400 * 1000)) );
+
+    </script>
+</html>

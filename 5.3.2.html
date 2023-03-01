@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+            function checkSpam (input) {
+                return input.toLowerCase().indexOf("viagra")>=0||input.toLowerCase().indexOf("xxx")>=0;
+            }
+            alert(checkSpam('buy ViAgRA now') == true);
+            alert(checkSpam('free xxxxx') == true);
+            alert(checkSpam("innocent rabbit") == false);
+    </script>
+</html>

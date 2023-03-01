@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+            let password
+            let login=prompt('Кто там?','');
+            if (login=='Админ') {
+               password=prompt('Пароль?','')
+               if (password == null) {
+                  alert ('Отменено');
+               } else if (password=='Я главный') {
+                  alert ('Здравствуйте!');
+               } else {
+                  alert ('Неверный пароль');
+               }
+            } else if (login==null) {
+              alert('Отменено');
+            } else {
+              alert('Я вас не знаю');
+            }
+
+    </script>
+</html>

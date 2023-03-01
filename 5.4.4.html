@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+            function sumInput() {
+
+            let temp;
+            let result=[];
+
+            while (isFinite(temp=prompt('Enter a number:',''))&&temp!=null&&temp!=="") {
+                  result.push(+temp);
+            }
+
+            let sum = 0;
+
+            for (let item of result) {
+                sum += item;
+                }
+
+            return sum;
+            }
+
+            alert(sumInput());
+
+    </script>
+</html>

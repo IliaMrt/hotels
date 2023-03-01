@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+
+checkAge(18)
+checkAge1(18)
+
+function checkAge(age) {
+  if (age > 18) {
+    return true;
+  } else {
+    return confirm('Родители разрешили?');
+  }
+}
+
+
+function checkAge1(age) {
+  if (age > 18) {
+    return true;
+  }
+  // ...
+  return confirm('Родители разрешили?');
+}
+
+function confirm(question) {
+         return prompt(question,'');
+}
+
+//both functions are similar
+
+    </script>
+</html>

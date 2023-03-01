@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+    let salaries = {
+      "John": 100,
+      "Pete": 300,
+      "Mary": 250
+    };
+
+    function topSalary(inputSalaries){
+      let topEmployee;
+      let temp=0;
+      if (inputSalaries == null) {return null}
+      for (let [name, salary] of Object.entries(inputSalaries)) {
+        count++;
+        if (salary>temp) {
+          topEmployee=name;
+          temp=salary;
+          }
+      }
+
+      return topEmployee;
+    }
+
+ //   salaries=null;
+    alert(topSalary(salaries));
+
+    </script>
+</html>

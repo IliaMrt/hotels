@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+            alert(pow(prompt('Введите основание',''),prompt('Введите степень','')));
+            function pow(a,b) {
+                     if (b<1) {
+                     return String('Используйте натуральное число для степени')
+                     }
+                     let result=1;
+                     for (let i=1;i<=b;i++) {
+                         result*=a;
+                     }
+                     return result
+            }
+
+    </script>
+</html>

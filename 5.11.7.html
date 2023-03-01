@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+      console.log(getSecondsToday());
+      function getSecondsToday() {
+        return Math.round(((new Date()).setHours(24,59,59,999)-Date.now()+1)/1000);
+
+      }
+
+
+    </script>
+</html>

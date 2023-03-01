@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+            let ask=(question,yes,no)=>confirm(question)?yes():no();
+            ask(
+              "Вы согласны?",
+                ()=>alert("Вы согласились."),
+                ()=>alert("Вы отменили выполнение.")
+            );
+
+
+            function confirm(question){
+               return prompt(question,true)?true:false;
+            }
+
+
+
+
+    </script>
+</html>

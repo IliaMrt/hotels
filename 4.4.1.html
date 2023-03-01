@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+            "use strict";
+            function makeUser() {
+              return {
+                     name: "John",
+                     ref: this
+                      };
+            }
+
+            let user = makeUser();
+
+            alert( user.ref.name ); // Каким будет результат? error, due to .name. Result without .name is 'undefined'.
+    </script>
+</html>

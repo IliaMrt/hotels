@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+            let calculator={
+                num1: 0,
+                num2: 0,
+                read() {
+/*                       while (this.num1 = +prompt('Enter first number please:','')!=this.num1*1){}
+                       while (this.num2 = +prompt('Enter second number please:','')!=this.num1*1){}
+
+*/
+
+                       this.num1 = +prompt('Enter first number please:','');
+                       this.num2 = +prompt('Enter second number please:','');
+
+                       },
+
+                sum() {
+                      return this.num1+this.num2;
+                },
+
+                mult() {
+                      return this.num1*this.num2;
+                },
+
+            }
+            calculator.read();
+            alert(`${calculator.num1} * ${calculator.num2} = ${calculator.mult()}`);
+            alert(`${calculator.num1} + ${calculator.num2} = ${calculator.sum()}`);
+
+    </script>
+</html>

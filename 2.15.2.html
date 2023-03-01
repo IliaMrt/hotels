@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script>
+
+alert(checkAge(19));
+alert(checkAge1(19));
+
+
+function checkAge(age) {
+    return (age>18)?true:confirm('Родители разрешили?');
+}
+
+function checkAge1(age) {
+    return (age>18)||confirm('Родители разрешили?');
+}
+
+
+function confirm(question) {
+         return prompt(question,'');
+}
+
+    </script>
+</html>
