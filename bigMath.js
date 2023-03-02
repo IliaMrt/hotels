@@ -1,4 +1,145 @@
-function bigDiv(str1, str2) {
+function test() {
+  let counter = 0;
+  console.log('Test started')
+  for (let i = 0.1; i <= 10; i += 0.1) {
+    for (let j = 0.1; j <= 10; j += 0.1) {
+      //if (i <= j) continue;
+
+      let ii = i + Math.random();
+      let jj = j + Math.random();
+      counter++;
+      let x = bigDiv(String(ii), String(jj));
+      let y = String((ii / jj).toFixed(5));
+      if (x.slice(0, 4) != y.slice(0, 4)) {
+        console.log(`err. i=${ii}, j=${jj}, get ${x}, wait ${y}`)
+      }
+    }
+  }
+  console.log(`${counter} test passed OK`)
+}
+
+function bigDiv(str1, str2, aproximate) {
+
+  let obj = normalizeInput(str1, str2);
+  let a = obj.str1.str;
+  let b = obj.str2.str;
+  let result = ''
+  let counter;
+
+  if (b == '0') return Infinity;
+  if (a == '0') return '0';
+
+
+  let shift = 0;
+  let maxPoint = Math.max(obj.str1.point, obj.str2.point);
+  if (aproximate < 5 || aproximate == undefined) aproximate = 5;
+  let targetAccuracy = aproximate || maxPoint;
+  let currenAccuracy = 0;
+  let register = obj.str2.point - obj.str1.point;
+
+  while (isXbiggerY(b, a)) {
+    a += '0';
+    shift++;
+    currenAccuracy++;
+    register--
+  }
+
+  targetAporx = Math.max(maxPoint + shift, aproximate);
+
+  let end = a.length - 1;
+  let pointer = b.length - 1;
+
+  let currentDiff = a.slice(0, pointer + 1);
+
+  if (isXbiggerY(b, currentDiff)) {
+    pointer++;
+    currentDiff += a[pointer];
+  }
+
+  do {
+
+    while (isXbiggerY(b, currentDiff) && pointer < end) {
+      pointer++
+      result += '0'
+      if (currentDiff == '0') {
+        if (a[pointer] != '0') currentDiff = a[pointer]
+      } else {
+        currentDiff += a[pointer]
+      }
+    }
+
+    counter = 0;
+
+    while (isXbiggerY(currentDiff, b) || currentDiff == b) {
+      counter++;
+      currentDiff = bigDiff(currentDiff, b);
+    }
+
+    result += String(counter);
+    pointer++;
+
+    while (pointer >= end && currenAccuracy < targetAccuracy) {
+      end++;
+      a += '0';
+      currenAccuracy++;
+      register--;
+      shift++;
+    }
+
+    if (pointer != end) {
+      if (currentDiff != '0') {
+        currentDiff += a[pointer]
+      } else {
+        currentDiff = a[pointer]
+      }
+    } else {
+      counter = 0;
+
+      if (currentDiff != '0') {
+        currentDiff += a[pointer]
+      } else {
+        currentDiff = a[pointer]
+      }
+
+      while (isXbiggerY(currentDiff, b) || currentDiff == b) {
+        counter++;
+        currentDiff = bigDiff(currentDiff, b);
+      }
+      if (counter == 10) counter = 0;
+      result += String(counter)
+
+    }
+
+  } while (pointer < end);
+
+  let delta = a.length - obj.str1.str.length;
+
+  if (result.length > -register) {
+    result = result.slice(0, result.length + register) + '.' + result.slice(result.length + register)
+  } else if (result.length <= -register) {
+    result = '0.' + '0'.repeat(-register - result.length) + result
+  }
+
+  let resultSign = '';
+  if (obj.str1.sign * obj.str2.sign < 0) resultSign = '-';
+
+  return resultSign + result;
+
+}
+
+function isXbiggerY(x, y) {
+  while (x.length > 1 && x[0] == '0') {
+    x = x.slice(1)
+  }
+
+  while (y.length > 1 && x[0] == '0') {
+    y = y.slice(1)
+  }
+
+  return compare({str: x, sign: 1, point: 0}, {str: y, sign: 1, point: 0});
+}
+
+function bigDivOld(str1, str2) {
 
   let obj = normalizeInput(str1, str2);
 
@@ -225,9 +366,13 @@ function bigMult(str1, str2) {
   let resultSign = '';
   if (obj.str1.sign * obj.str2.sign < 0) resultSign = '-';
 
-  return shift == 0 ?
-    resultSign + buffer2 :
-    resultSign + buffer2.slice(0, buffer2.length - shift) + '.' + buffer2.slice(buffer2.length - shift);
+  if (shift == 0) {
+    return resultSign + buffer2
+  } else {
+    let res = resultSign + buffer2.slice(0, buffer2.length - shift) + '.' + buffer2.slice(buffer2.length - shift);
+    if (res[0] == '.') res = '0' + res;
+    return resultSign + res;
+  }
 }
 
 function bigDiff(str1, str2) {
@@ -281,6 +426,9 @@ function bigSumm(str1, str2) {
     floatResult = bigSimpleOperation(firstFloat, secondFloat, +1);
 
     if (floatResult.length > firstFloat.length && floatResult.length > secondFloat.length) {
+
+      if (integerResult == '') integerResult = '0';
+
       integerResult = bigSimpleOperation(integerResult, '1', +1);
       floatResult = floatResult.slice(1, floatResult.length);
     }
@@ -297,7 +445,8 @@ function bigSumm(str1, str2) {
       integerResult = bigSimpleOperation(integerResult, '1', -1);
       floatResult = floatResult.slice(1, floatResult.length);
     }
-
+    //let delta = Math.max(firstFloat.length, secondFloat.length) - floatResult.length;
+    //floatResult = '0'.repeat(delta) + floatResult;
     if (compareResult) {
       obj.str1.sign == 1 ?
         resultSign = '' :
@@ -309,10 +458,16 @@ function bigSumm(str1, str2) {
     }
   }
 
+  /* if (+firstFloat[0] + +secondFloat[0] >= 10) {
+     if (floatResult.length>1) floatResult=floatResult.slice(1);
+     integerResult=bigSimpleOperation(integerResult,1, +1);
+   }*/
+
   if (integerResult == 0 && floatResult == '') resultSign = '';
 
-  // integerResult=checkZero(integerResult);
 
+  // integerResult=checkZero(integerResult);
+  if (integerResult == '') integerResult = '0';
   return floatResult == '' ?
     resultSign + integerResult :
     resultSign + integerResult + '.' + floatResult;
@@ -475,6 +630,10 @@ function bigSimpleOperation(str1, str2, operation) {
   }
 
   if (addDigit != 0) res.unshift(1);
+
+  /*while (res[0] == 0 && res.length > 1) {
+    res.shift();
+  }*/
 
   return res.join('');
 
